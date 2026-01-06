@@ -1,7 +1,12 @@
 import {useState} from 'react'
 
 const Button = (props) => <button onClick={props.onClick}>{props.text}</button>
-const StatisticLine = (props) => <p>{props.text} {props.value}</p>
+const StatisticLine = (props) => (
+  <tr>
+    <td>{props.text}</td> 
+    <td>{props.value}</td>
+  </tr>
+  )
 const Statistics = (props) => {
   const all = props.good + props.neutral + props.bad
   const average = (props.good - props.bad) / all
@@ -17,12 +22,18 @@ const Statistics = (props) => {
 
   return (
     <div>
-      <StatisticLine text="good" value={props.good} />
-      <StatisticLine text="neutral" value={props.neutral} />
-      <StatisticLine text="bad" value={props.bad} />
-      <StatisticLine text="all" value={all} />
-      <StatisticLine text="average" value={average} />
-      <StatisticLine text="positive" value={positive} />
+      <table>
+        <tbody>
+          <StatisticLine text="good" value={props.good} />
+          <StatisticLine text="neutral" value={props.neutral} />
+          <StatisticLine text="bad" value={props.bad} />
+          <StatisticLine text="all" value={all} />
+          <StatisticLine text="average" value={average} />
+          <StatisticLine text="positive" value={positive} />
+        </tbody>
+        
+      </table>
+      
     </div>
   )
 }
