@@ -11,22 +11,25 @@ const App = () => {
     ? Math.max(...persons.map( (person) => Number(person.id)))
     : 0
     return String(maxId + 1)
-    
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    setPersons(persons.concat({id: personId(), name: newName }))
+    // check for duplicate 
+    if (persons.some(person => person.name === newName)) {
+      alert(`${newName} is already added to phonebook`)
+      return // stop the handleSubmit here, so we don't add the duplicate name.
+    }
+    const newPerson = {
+      name: newName,
+      id: personId()
+    }
+    setPersons(persons.concat(newPerson))
     setNewName('')
-
-    
   }
   const handleChange = (event) => {
     setNewName(event.target.value)
   }
-
-    
-  
 
   return (
     <div>
