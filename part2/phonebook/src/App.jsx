@@ -18,13 +18,6 @@ const App = () => {
       })
   },[])
 
-  const personId = () => {
-    const maxId = persons.length > 0
-    ? Math.max(...persons.map( (person) => Number(person.id)))
-    : 0
-    return String(maxId + 1)
-  }
-
   const handleSubmit = (event) => {
     event.preventDefault()
     // check for duplicate 
@@ -32,14 +25,19 @@ const App = () => {
       alert(`${newName} is already added to phonebook`)
       return // stop the handleSubmit here, so we don't add the duplicate name.
     }
+    
     const newPerson = {
       name: newName,
-      id: personId(),
       number: newNumber,
     }
-    setPersons(persons.concat(newPerson))
-    setNewName('')
-    setNewNumber('')
+    axios
+      .post('http://localhost:3002/persons', newPerson)
+      .then((response)=>{
+        setPersons(persons.concat(response.data))
+        setNewName('')
+        setNewNumber('')
+      })
+    
   }
   const handleNameChange = (event) => setNewName(event.target.value)
   const handleNumChange = (event) => setNewNumber(event.target.value)
