@@ -11,7 +11,8 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newFilter, setFilter] = useState('')
-  const [message, setMessage] = useState(null)
+  const [successfulMessage, setSuccessfulMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect( ()=>{
     personService
@@ -30,12 +31,19 @@ const App = () => {
           .update(changedPerson.id, changedPerson)
           .then(returnedPerson => {
             setPersons(persons.map(person => person.id === changedPerson.id ? returnedPerson : person))
-            setMessage(`The number of '${changedPerson.name}' has been updated successfully.`)
+            setSuccessfulMessage(`The number of '${changedPerson.name}' has been updated successfully.`)
             setTimeout(()=>{
-              setMessage(null)
+              setSuccessfulMessage(null)
             }, 5000)
             setNewName('')
             setNewNumber('')
+          })
+          .catch(error => {
+            setErrorMessage(`Information of ${findPerson.name} has already been removed from server `)
+            setTimeout(()=>{
+              setErrorMessage(null)
+            }, 5000)
+            setPersons(persons.filter(p => p.id !== findPerson.id))
           })
       }
       return
@@ -49,9 +57,9 @@ const App = () => {
       .create(newPerson)
       .then((returnedPerson)=>{
         setPersons(persons.concat(returnedPerson))
-        setMessage(`Added ${returnedPerson.name}`)
+        setSuccessfulMessage(`Added ${returnedPerson.name}`)
         setTimeout(()=>{
-          setMessage(null)
+          setSuccessfulMessage(null)
         }, 5000)
         setNewName('')
         setNewNumber('')
@@ -78,7 +86,7 @@ const App = () => {
     <div>
       
       <h2>Phonebook</h2>
-      <Notification message={message}/>
+      <Notification successfulMessage={successfulMessage} errorMessage={errorMessage}/>
       <Filter newFilter={newFilter} handleFilter={handleFilter} />
       <h3>Add a new </h3>
       <PersonForm  handleSubmit={handleSubmit} newName={newName} handleNameChange={handleNameChange}  newNumber={newNumber} handleNumChange={handleNumChange} />
