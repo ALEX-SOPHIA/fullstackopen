@@ -43,8 +43,11 @@ const App = () => {
   } else if (matches.length === 0) {
     contentToShow = <p>Not found</p>
   } else {
-    contentToShow = matches.map(country => <p key={country.name.common}>{country.name.common}</p>)
+    contentToShow = matches.map(country => <p key={country.name.common}>{country.name.common} <button onClick={() => {
+      setValue(country.name.common)
+    }}>Show</button></p>)
   }
+
     
   return(
     <div>
