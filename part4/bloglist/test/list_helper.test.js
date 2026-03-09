@@ -123,3 +123,18 @@ describe('most blogs', () => {
     assert.deepStrictEqual(result, null)
   })
 })
+
+describe('most likes', () => {
+  test('of normal blog list returns the author with the largest amount of likes', () => {
+    const expected = {
+      author: "Edsger W. Dijkstra",
+      likes: 17
+    }
+    const result = listHelper.mostLikes(listBlogs)
+    assert.deepStrictEqual(result, expected)
+  })
+  test('of empty list returns null', () => {
+    const result = listHelper.mostLikes(emptyBlog)
+    assert.deepStrictEqual(result, null)
+  })
+})
