@@ -109,3 +109,17 @@ describe('favorite like', () => {
   })
 })
 
+describe('most blogs', () => {
+  test('of normal blog list returns the author with the highest number of blogs', () => {
+    const expected = {
+      author: "Robert C. Martin",
+      blogs: 3
+    }
+    const result = listHelper.mostBlogs(listBlogs)
+    assert.deepStrictEqual(result, expected)
+  })
+  test('of empty blog list returns null', () => {
+    const result = listHelper.mostBlogs(emptyBlog)
+    assert.deepStrictEqual(result, null)
+  })
+})
