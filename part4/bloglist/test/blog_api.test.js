@@ -1,5 +1,5 @@
 const assert = require('node:assert')
-const {test, after, beforeEach, describe} = require('node:test')
+const { test, after, beforeEach, describe } = require('node:test')
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
@@ -13,7 +13,7 @@ beforeEach(async () => {
     await Blog.insertMany(helper.initialBlogs)
 })
 
-describe('Test suite for GET', () => {
+describe('GET Test suite', () => {
     test('blogs are returned as json', async () => {
         await api
             .get('/api/blogs')
@@ -31,6 +31,27 @@ describe('Test suite for GET', () => {
             assert.strictEqual(typeof blog.id, 'string')
             assert.strictEqual(blog._id, undefined)
         })
+    })
+})
+
+describe('POST Test suite', () => {
+    test('a valid blog can be added', async () => {
+        const newBlog = {
+            title: "Alex blablabla",
+            author: "Alex",
+            url: "https://alexblablablaba.com/",
+            likes: 10,
+        }
+        await api
+            .post('/api/blogs')
+            .send(newBlog)
+            .expect(201)
+            .expect('Content-Type', /application\/json/)
+        const blogsInDb = await helper.blogsInDb()
+        assert.strictEqual(blogsInDb.length, helper.initialBlogs.length +1)
+        const titles = blogsInDb.map(blog => blog.title) 
+        assert(titles.includes('Alex blablabla'))
+        
     })
 })
 
