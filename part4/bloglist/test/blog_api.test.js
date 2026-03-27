@@ -23,7 +23,14 @@ describe('Test suite for GET', () => {
     test('all blogs are returned', async () => {
         const response = await api.get('/api/blogs')
         assert.strictEqual(response.body.length, helper.initialBlogs.length)
-        console.log('Amount of blogs:', response.body.length)
+    })
+    test('the unique identifier property of the blogs is named id', async () => {
+        const response = await api.get('/api/blogs')
+        assert(response.body.length > 0)
+        response.body.forEach(blog => {
+            assert.strictEqual(typeof blog.id, 'string')
+            assert.strictEqual(blog._id, undefined)
+        })
     })
 })
 
