@@ -53,6 +53,23 @@ describe('POST Test suite', () => {
         assert(titles.includes('Alex blablabla'))
         
     })
+    test('A blog missing likes property has a default likes: 0', async () => {
+        const newBlog = {
+            title: "Sophia blablabla",
+            author: "Sophia",
+            url: "https://alexblablablaba.com/",
+        }
+        const response = await api
+            .post('/api/blogs')
+            .send(newBlog)
+            .expect(201)
+            .expect('Content-Type', /application\/json/)
+        
+        const newId = response.body.id
+        const blogsInDb = await helper.blogsInDb()
+        const addedBlog = blogsInDb.find(b => b.id === newId)
+        assert.strictEqual(addedBlog.likes, 0)
+    })
 })
 
 after(async () => {

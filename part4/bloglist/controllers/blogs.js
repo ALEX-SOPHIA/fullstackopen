@@ -7,8 +7,8 @@ blogsRouter.get('/', async (request, response) => {
 })
 
 blogsRouter.post('/', async (request,response) => {
-    const blog = new Blog(request.body)
-    const savedblog = await blog.save()
+    const newBlog = new Blog(request.body)
+    const savedblog = await newBlog.save()
     response.status(201).json(savedblog)
 })
 
