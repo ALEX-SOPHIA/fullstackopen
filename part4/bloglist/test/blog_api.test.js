@@ -70,6 +70,25 @@ describe('POST Test suite', () => {
         const addedBlog = blogsInDb.find(b => b.id === newId)
         assert.strictEqual(addedBlog.likes, 0)
     })
+    test('Status code 400 for posting a new blog without title or url: ', async () => {
+        const blogWoTitle = {
+            author: "Alex",
+            url: "https://alexblablablaba.com/",
+        }
+        const blogWoUrl = {
+            title: "Alex Sophia blablabla",
+            author: "Alex Sophia",
+        }
+        await api
+            .post('/api/blogs')
+            .send(blogWoTitle)
+            .expect(400)
+
+        await api
+            .post('/api/blogs')
+            .send(blogWoUrl)
+            .expect(400)
+    })
 })
 
 after(async () => {
