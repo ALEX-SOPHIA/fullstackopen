@@ -18,3 +18,12 @@ Content-Type: application/json
     "url": "https://reactpatterns.com/",
     "likes": 7
 }
+
+### log-in
+post http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+    "username": "Alexlala",
+    "password": "122"
+}
