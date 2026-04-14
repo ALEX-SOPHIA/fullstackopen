@@ -8,3 +8,13 @@ Content-Type: application/json
     "password": "122"
 
 }
+### create blogs
+post http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+    "title": "addadasdadasdadadad",
+    "author": "Michael Chan",
+    "url": "https://reactpatterns.com/",
+    "likes": 7
+}
