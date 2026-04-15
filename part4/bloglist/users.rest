@@ -27,3 +27,15 @@ Content-Type: application/json
     "username": "Alexlala",
     "password": "122"
 }
+
+### create blogs with token authentication
+post http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsZXhsYWxhIiwiaWQiOiI2OWRkZjA2Zjc3MGEwMzNiOTRkNjUxNjciLCJpYXQiOjE3NzYyMzcyNzd9.W7ghN0LabAdjzWV5aAwZD6DoWc-TctT5OPrWoFZXYQU
+
+{
+    "title": "ZZZZZZZZZZZZZZZZZZz",
+    "author": "Alex",
+    "url": "https://reactpatterns.com/",
+    "likes": 7
+}
